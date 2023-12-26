@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.YCFengZi.Mapper.ProductMapper">
+    <insert id="add">
+        insert into product(name, price, cid) values ('${name}', ${price},${category.id})
+    </insert>
+    <delete id="delete">
+        delete from product where id in
+        <foreach collection="array" item="ids"
+                 open="(" close=")" separator=",">
+            #{ids}
+        </foreach>
+    </delete>
+    <select id="findAll" resultType="net.YCFengZi.Pojo.Product">
+        select * from product
+    </select>
+    <select id="findById" resultType="net.YCFengZi.Pojo.Product">
+        select * from product where id = ${id}
+    </select>
+</mapper>
