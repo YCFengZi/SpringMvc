@@ -16,4 +16,5 @@ public interface ProductMapper {
     Product findById(Integer id);
     int add(Product product);
     int delete(int[] ids);
+    int update(Product product);
 }

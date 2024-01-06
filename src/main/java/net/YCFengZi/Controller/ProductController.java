@@ -1,8 +1,9 @@
 package net.YCFengZi.Controller;
 
+import net.YCFengZi.Pojo.Category;
 import net.YCFengZi.Pojo.Product;
-import net.YCFengZi.Pojo.User;
 import net.YCFengZi.ResuInfo.ResuInfo;
+import net.YCFengZi.Service.CategoryService;
 import net.YCFengZi.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,12 +24,13 @@ import java.util.List;
 public class ProductController {
     @Autowired
     private ProductService productService;
+    @Autowired
+    private CategoryService categoryService;
 
     @GetMapping("/findAll")
     public String findAll(Model model) {
         List<Product> list = productService.findAll();
         model.addAttribute("plist",list);
-        System.out.println(list);
         return "product/list";
     }
 
@@ -62,5 +64,20 @@ public class ProductController {
             info.setMessage("删除失败！");
         }
         return info;
+    }
+
+    @GetMapping("/editUI")
+    public String editUI(Integer id,Model model){
+        Product product = productService.findById(id);
+        List<Category> clist = categoryService.findAll();
+        model.addAttribute("product",product);
+        model.addAttribute("clist",clist);
+        return "product/update";
+    }
+
+    @PostMapping("/update")
+    public String update(Product product) {
+        int update = productService.update(product);
+        return "redirect:/product/findAll";
     }
 }

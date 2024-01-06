@@ -5,6 +5,21 @@
     <insert id="add">
         insert into product(name, price, cid) values ('${name}', ${price},${category.id})
     </insert>
+    <update id="update">
+        update product
+        <set>
+            <if test="name != null">
+                ,name = #{name}
+            </if>
+            <if test="price != null">
+                , price = #{price}
+            </if>
+            <if test="category.id != null">
+                ,cid = #{category.id}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
     <delete id="delete">
         delete from product where id in
         <foreach collection="array" item="ids"

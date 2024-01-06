@@ -24,7 +24,6 @@ public class CategoryController {
     @ResponseBody
     public List<Category> findAll() {
         List<Category> list = categoryService.findAll();
-        System.out.println(list);
         return list;
     }
 }

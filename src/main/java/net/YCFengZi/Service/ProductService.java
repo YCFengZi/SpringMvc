@@ -1,7 +1,6 @@
 package net.YCFengZi.Service;
 
 import net.YCFengZi.Pojo.Product;
-import net.YCFengZi.Pojo.User;
 
 import java.util.List;
 
@@ -14,4 +13,5 @@ public interface ProductService {
     Product findById(Integer id);
     int add(Product product);
     int delete(int[] ids);
+    int update(Product product);
 }

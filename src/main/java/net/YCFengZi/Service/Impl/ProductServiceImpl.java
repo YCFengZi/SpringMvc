@@ -2,7 +2,6 @@ package net.YCFengZi.Service.Impl;
 
 import net.YCFengZi.Mapper.ProductMapper;
 import net.YCFengZi.Pojo.Product;
-import net.YCFengZi.Pojo.User;
 import net.YCFengZi.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,5 +37,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public int delete(int[] ids) {
         return productMapper.delete(ids);
+    }
+
+    @Override
+    public int update(Product product) {
+        return productMapper.update(product);
     }
 }

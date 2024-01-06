@@ -40,7 +40,7 @@
         <c:forEach items="${plist}" var="p" varStatus="v">
             <tr>
                 <td>
-                    <input type="checkbox"/>
+                    <input type="checkbox" class="mycheckbox" value="${p.id}"/>
                 </td>
                 <td>${v.count}</td>
                 <td>${p.name}</td>
@@ -56,7 +56,7 @@
             <td colspan="8" align="center"><a class="btn btn-primary" href="/page/product/add.jsp">添加商品</a></td>
         </tr>
         <tr>
-            <button>选中删除</button>
+            <button onclick="deletes()">选中删除</button>
         </tr>
     </table>
 </div>
@@ -71,9 +71,9 @@
         $.ajax({
             type: 'POST',
             url: '/product/delete',
-            data: { ids: id },
+            data: {ids: id},
             dataType: 'json',
-            success: function(result) {
+            success: function (result) {
                 console.log(result);
                 if (result.message == "删除成功！") {
                     alert(result.message);
@@ -81,10 +81,41 @@
                     currentRow.remove();
                 }
             },
-            error: function() {
+            error: function () {
                 alert("删除错误！");
             }
         });
+    }
+
+    function deletes() {
+        let flag = confirm("确认删除？");
+        if (!flag) {
+            return;
+        }
+        let ids = [];
+        $(".mycheckbox:checked").each(function () {
+            console.log(ids);
+            ids.push($(this).val());
+        })
+        $.ajax({
+            type: 'POST',
+            url: '/product/delete',
+            data: {ids: ids},
+            dataType: 'json',
+            traditional: true,
+            success: function (result) {
+                console.log(result);
+                if (result.message == '删除成功！') {
+                    alert(result.message);
+                    $('.mycheckbox:checked').each(function () {
+                        $(this).parent().parent().remove();
+                    })
+                }
+            },
+            error: function () {
+                alert("删除错误！");
+            }
+        })
     }
 </script>
 </html>
